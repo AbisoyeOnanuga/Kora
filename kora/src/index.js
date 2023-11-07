@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import Login from './Login'; // this is the login page component
 import Dashboard from './Dashboard'; // this is the dashboard page component that requires authentication
+import "./tailwind.css";
 
 
 const root = ReactDOM.render(
