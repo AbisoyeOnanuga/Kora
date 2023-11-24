@@ -1,12 +1,17 @@
 # Import Streamlit and Spotipy
+import os
+import dotenv
 import streamlit as st
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
+# Load the environment variables from the .env file
+dotenv.load_dotenv()
+
 # Define Spotify credentials and scope
-client_id = "07cf532190044f808358e604406e2bee"
-client_secret = "ee00814d058c48d095bd1d3256df89a6"
-redirect_uri = "http://localhost:8501/"
+client_id = os.environ.get("SPOTIFY_CLIENT_ID")
+client_secret = os.environ.get("SPOTIFY_CLIENT_SECRET")
+redirect_uri = os.environ.get("SPOTIFY_REDIRECT_URI")
 scope = "user-library-read user-top-read playlist-modify-public"
 
 # Create a Spotify object with authentication
