@@ -1,4 +1,4 @@
 # Requirements.txt file for the Streamlit app
 streamlit==1.2.0 # Streamlit framework
 spotipy==2.19.0 # Spotipy module for Spotify API
-dotenv==0.0.5
+python-dotenv==1.0.0
