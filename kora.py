@@ -4,9 +4,9 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
 # Define Spotify credentials and scope
-client_id = "client-id"
-client_secret = "client-secret"
-redirect_uri = "http://localhost/"
+client_id = "07cf532190044f808358e604406e2bee"
+client_secret = "ee00814d058c48d095bd1d3256df89a6"
+redirect_uri = "http://localhost:8501/"
 scope = "user-library-read user-top-read playlist-modify-public"
 
 # Create a Spotify object with authentication
@@ -58,6 +58,7 @@ criteria = criteria_dict[activity]
 # Create a button to generate the playlist
 if st.sidebar.button("Generate Playlist"):
     # Get the user’s top tracks as seeds
+    user_top_tracks = sp.current_user_top_tracks() # This line was missing in your code, causing the error
     seed_tracks = [track["id"] for track in user_top_tracks["items"]]
 
     # Slice the list to get the first 5 tracks
