@@ -84,5 +84,9 @@ if st.sidebar.button("Generate Playlist"):
     # Display the playlist name and link
     st.write(f"Your playlist {playlist['name']} is ready. You can listen to it here: {playlist['external_urls']['spotify']}")
 
-    # Display the playlist tracks as a table
-    st.table(playlist_items["tracks"])
+    # Display playlist tracks as a static table with audio players
+    for track in playlist_items["tracks"]:
+        #create a row with the track name, artist name, and duration
+        st.markdown(f"**{track['name']}** by *{track['artists'][0]['name']}* ({track['duration_ms'] / 1000} seconds)")
+        # Create an audio player with the preview_url
+        st.audio(track["preview_url"], format="audio/mp3")
