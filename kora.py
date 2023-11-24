@@ -1,6 +1,7 @@
 # Import Streamlit and Spotipy
 import os
 import dotenv
+import pandas as pd
 import streamlit as st
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
@@ -82,11 +83,30 @@ if st.sidebar.button("Generate Playlist"):
     sp.user_playlist_add_tracks(user_profile["id"], playlist["id"], playlist_tracks)
 
     # Display the playlist name and link
-    st.write(f"Your playlist {playlist['name']} is ready. You can listen to it here: {playlist['external_urls']['spotify']}")
+    st.markdown(f"Your playlist **{playlist['name']}** is ready. You can listen to it here: {playlist['external_urls']['spotify']}")
 
-    # Display playlist tracks as a static table with audio players
+    # Define a custom function to convert milliseconds to mm:ss format
+    def format_duration(ms):
+        # Convert milliseconds to seconds
+        s = ms / 1000
+        # Get the minutes and seconds
+        m, s = divmod(s, 60)
+        # Return the formatted string
+        return f"{int(m)}:{int(s):02d}"
+
+    # Display the playlist tracks as a list
     for track in playlist_items["tracks"]:
-        #create a row with the track name, artist name, and duration
-        st.markdown(f"**{track['name']}** by *{track['artists'][0]['name']}* ({track['duration_ms'] / 1000} seconds)")
-        # Create an audio player with the preview_url
+        # Get the track name, artists, and duration
+        name = track["name"]
+        artists = ", ".join([artist["name"] for artist in track["artists"]])
+        duration = format_duration(track["duration_ms"])
+        # Display the track information as formatted text
+        st.markdown(f"**{name}** by **{artists}** ({duration})")
+        # Display the audio player for the track
         st.audio(track["preview_url"], format="audio/mp3")
+    
+    # Display the playlist tracks as a numbered table with formatted text and audio players
+    #st.table(playlist_items["tracks"], format={"name": "markdown", "duration_ms": format_duration})
+    #for track in playlist_items["tracks"]:
+        # Create an audio player with the preview_url
+    #    st.audio(track["preview_url"], format="audio/mp3")
