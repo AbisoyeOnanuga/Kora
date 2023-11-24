@@ -7,7 +7,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
 # Set the page title and icon
-st.set_page_config(page_title="Kora - Spotify Playlist generator", page_icon="https://github.com/dottymatrix/Kora/blob/main/Kora_logo-small.png")
+st.set_page_config(page_title="Kora - Spotify Playlist generator", page_icon="https://github.com/dottymatrix/Kora/blob/main/Kora_logo-icon.png")
 
 # Load the environment variables from the .env file
 dotenv.load_dotenv()
