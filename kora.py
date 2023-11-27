@@ -18,11 +18,6 @@ client_secret = os.environ.get("SPOTIFY_CLIENT_SECRET")
 redirect_uri = os.environ.get("SPOTIFY_REDIRECT_URI")
 scope = "user-library-read user-top-read playlist-modify-public"
 
-# Define Auth0 domain, client ID, and client secret
-auth0_domain = os.environ.get("AUTH0_DOMAIN")
-auth0_client_id = os.environ.get("AUTH0_CLIENT_ID")
-auth0_client_secret = os.environ.get("AUTH0_CLIENT_SECRET")
-
 # Create a Spotify object with authentication
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope, open_browser=False))
 
