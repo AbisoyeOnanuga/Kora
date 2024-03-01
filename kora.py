@@ -21,7 +21,14 @@ scope = "user-library-read user-top-read playlist-modify-public"
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope, open_browser=False))
 
 # Create a title and a subtitle for the app
-st.title("Kora")
+
+# Create two columns for the logo and the title
+col1, col2 = st.columns(2)
+# Display the logo in the first column
+col1.image("https://github.com/dottymatrix/Kora/blob/main/Kora_Logo-Colour.png?raw=true", width=300)
+# Display the title in the second column
+col2.title("Kora")
+
 st.subheader("Create a personalized Spotify playlist based on your activity and preferences")
 
 # Get the user profile from Spotify
@@ -95,14 +102,23 @@ if st.sidebar.button("Generate Playlist"):
         m, s = divmod(s, 60)
         # Return the formatted string
         return f"{int(m)}:{int(s):02d}"
-
+    
     # Display the playlist tracks as a list
     for track in playlist_items["tracks"]:
-        # Get the track name, artists, and duration
+        # Get the track name, artists, duration, and thumbnail URL
         name = track["name"]
         artists = ", ".join([artist["name"] for artist in track["artists"]])
         duration = format_duration(track["duration_ms"])
-        # Display the track information as formatted text
-        st.markdown(f"**{name}** by **{artists}** ({duration})")
-        # Display the audio player for the track
-        st.audio(track["preview_url"], format="audio/mp3")
+        thumbnail = track["album"]["images"][2]["url"] # Get the smallest image URL
+
+        # Create two columns for the track
+        col1, col2 = st.columns(2, gap="small")
+
+        # Display the thumbnail in the first column
+        with col1:
+            st.image(thumbnail, width=128, caption=name) # Set the width to 128 pixels and the caption to the track name
+
+        # Display the track information and audio player in the second column
+        with col2:
+            st.markdown(f"**{name}** by **{artists}** ({duration})") # Display the track information as formatted text
+            st.audio(track["preview_url"], format="audio/mp3") # Display the audio player for the track
